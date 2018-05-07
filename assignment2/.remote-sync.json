@@ -1,0 +1,18 @@
+{
+  "logger": {
+    "title": "Remote Sync"
+  },
+  "uploadOnSave": true,
+  "useAtomicWrites": true,
+  "deleteLocal": false,
+  "hostname": "underground.cse.buffalo.edu",
+  "target": "/home/csdue/bdlipp/cse489589_assignment2",
+  "ignore": [
+    ".remote-sync.json",
+    ".git/**"
+  ],
+  "username": "bdlipp",
+  "password": "Sonic999!",
+  "watch": [],
+  "transport": "scp"
+}
