@@ -120,7 +120,6 @@ bool control_recv_hook(int sock_index)
     char *cntrl_header, *cntrl_payload;
     uint8_t control_code;
     uint16_t payload_len;
-    bool terminate = FALSE;
 
     /* Get control header */
     cntrl_header = (char *) malloc(sizeof(char)*CNTRL_HEADER_SIZE);
@@ -179,7 +178,7 @@ bool control_recv_hook(int sock_index)
                 break;
 
         case 4: crash_response(sock_index);
-                terminate = TRUE;
+                exit(0);
                 break;
 
     }
