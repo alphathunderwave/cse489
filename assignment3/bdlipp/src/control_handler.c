@@ -32,6 +32,8 @@
 #include "../include/network_util.h"
 #include "../include/control_header_lib.h"
 #include "../include/author.h"
+#include "../include/init.h"
+
 
 #ifndef PACKET_USING_STRUCT
     #define CNTRL_CONTROL_CODE_OFFSET 0x04
@@ -118,6 +120,7 @@ bool control_recv_hook(int sock_index)
     char *cntrl_header, *cntrl_payload;
     uint8_t control_code;
     uint16_t payload_len;
+    bool terminate = FALSE;
 
     /* Get control header */
     cntrl_header = (char *) malloc(sizeof(char)*CNTRL_HEADER_SIZE);
@@ -131,7 +134,7 @@ bool control_recv_hook(int sock_index)
 
     /* Get control code and payload length from the header */
     #ifdef PACKET_USING_STRUCT
-        /** ASSERT(sizeof(struct CONTROL_HEADER) == 8) 
+        /** ASSERT(sizeof(struct CONTROL_HEADER) == 8)
           * This is not really necessary with the __packed__ directive supplied during declaration (see control_header_lib.h).
           * If this fails, comment #define PACKET_USING_STRUCT in control_header_lib.h
           */
@@ -166,13 +169,19 @@ bool control_recv_hook(int sock_index)
         case 0: author_response(sock_index);
                 break;
 
-        /* .......
         case 1: init_response(sock_index, cntrl_payload);
                 break;
 
-            .........
-           ....... 
-         ......*/
+        case 2: routing_table_response(sock_index);
+                break;
+
+        case 3: update_response(sock_index,cntrl_payload);
+                break;
+
+        case 4: crash_response(sock_index);
+                terminate = TRUE;
+                break;
+
     }
 
     if(payload_len != 0) free(cntrl_payload);

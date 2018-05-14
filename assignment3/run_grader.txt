@@ -1,0 +1,1 @@
+ ./grader_controller -c ./grader.cfg -d /home/csdue/bdlipp/cse489/assignment3/bdlipp/grader_staging/ -s /home/beeeeennnn/cse489/assignment3/bdlipp_pa3.tar -ctrl ../controller/controller -t init
